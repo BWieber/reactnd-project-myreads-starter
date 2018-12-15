@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
+import { Link } from 'react-router-dom';
+import * as BooksAPI from './BooksAPI';
+import BookshelfChanger from './BookshelfChanger';
 
 class SearchPage extends Component {
     state = {
       query: '',
       books: []
     }
-
-    // componentDidMount() {
-    //   BooksAPI.search('Android').then((books) => {
-    //     this.setState({ books })
-    //   })
-    // }
 
     updateQuery = (query) => {
       const trimmedQuery = query.trim();
@@ -69,15 +64,7 @@ class SearchPage extends Component {
                   <div className="book">
                     <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                      <div className="book-shelf-changer">
-                        <select>
-                          <option value="move" disabled>Move to...</option>
-                          <option value="currentlyReading">Currently Reading</option>
-                          <option value="wantToRead">Want to Read</option>
-                          <option value="read">Read</option>
-                          <option value="none">None</option>
-                        </select>
-                      </div>
+                      <BookshelfChanger />
                     </div>
                     <div className="book-title"> {`${book.title}`} </div>
                     <div className="book-authors">
