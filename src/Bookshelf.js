@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import BookshelfChanger from './BookshelfChanger';
-
+import BookGrid from './BookGrid';
 
 class Bookshelf extends Component {
     state = {
@@ -36,73 +36,21 @@ class Bookshelf extends Component {
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {currentlyReading.length > 0 && (
-                        currentlyReading.map((book) =>
-                          <li>
-                            <div className="book">
-                              <div className="book-top">
-                                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                                <BookshelfChanger />
-                              </div>
-                              <div className="book-title"> {`${book.title}`} </div>
-                              <div className="book-authors">
-                                {book.authors}
-                              </div>
-                            </div>
-                          </li>
-                        )
-                      )}
-                    </ol>
+                    <BookGrid collection={currentlyReading} />
                   </div>
                 </div>
 
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {wantToRead.length > 0 && (
-                        wantToRead.map((book) =>
-                          <li>
-                            <div className="book">
-                              <div className="book-top">
-                                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                                <BookshelfChanger />
-                              </div>
-                              <div className="book-title"> {`${book.title}`} </div>
-                              <div className="book-authors">
-                                {book.authors}
-                              </div>
-                            </div>
-                          </li>
-                        )
-                      )}
-                    </ol>
+                    <BookGrid collection={wantToRead} />
                   </div>
                 </div>
 
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {booksRead.length > 0 && (
-                        booksRead.map((book) =>
-                          <li>
-                            <div className="book">
-                              <div className="book-top">
-                                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                                <BookshelfChanger />
-                              </div>
-                              <div className="book-title"> {`${book.title}`} </div>
-                              <div className="book-authors">
-                                {book.authors}
-                              </div>
-                            </div>
-                          </li>
-                        )
-                      )}
-                    </ol>
-
+                    <BookGrid collection={booksRead} />
                   </div>
                 </div>
               </div>
