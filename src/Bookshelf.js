@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
-import BookshelfChanger from './BookshelfChanger';
 import BookGrid from './BookGrid';
 
 class Bookshelf extends Component {
@@ -41,7 +40,7 @@ class Bookshelf extends Component {
     }
 
     render() {
-        const { books, currentlyReading, wantToRead, booksRead } = this.state;
+        const { currentlyReading, wantToRead, booksRead } = this.state;
 
         return (
             <div className="list-books">
