@@ -3,7 +3,7 @@ import BookshelfChanger from './BookshelfChanger';
 
 class BookGrid extends Component {
     render() {
-        const { collection } =  this.props;
+        const { collection, updateBookLocation } =  this.props;
 
         return (
             <ol className="books-grid">
@@ -13,7 +13,7 @@ class BookGrid extends Component {
                   <div className="book">
                     <div className="book-top">
                       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                        <BookshelfChanger />
+                        <BookshelfChanger updateBookLocation={updateBookLocation} book={book} />
                       </div>
                 
                       <div className="book-title"> {`${book.title}`} </div>

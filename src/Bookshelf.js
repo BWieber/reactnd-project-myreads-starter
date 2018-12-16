@@ -5,20 +5,37 @@ import BookshelfChanger from './BookshelfChanger';
 import BookGrid from './BookGrid';
 
 class Bookshelf extends Component {
-    state = {
-      books: [],
-      currentlyReading: [],
-      wantToRead: [],
-      booksRead: []
+    constructor(props) {
+      super(props);
+      this.state = {
+        books: [],
+        currentlyReading: [],
+        wantToRead: [],
+        booksRead: []
+      }
+
+      this.updateBookLocation = this.updateBookLocation.bind(this);
+    }
+
+    setShelfState(books) {
+      this.setState({
+        books: books,
+        currentlyReading: books.filter((book) => book.shelf === 'currentlyReading'),
+        wantToRead: books.filter((book) => book.shelf === 'wantToRead'),
+        booksRead: books.filter((book) => book.shelf === 'read')
+      })
     }
 
     componentDidMount() {
       BooksAPI.getAll().then((books) => {
-        this.setState({
-          books: books,
-          currentlyReading: books.filter((book) => book.shelf === 'currentlyReading'),
-          wantToRead: books.filter((book) => book.shelf === 'wantToRead'),
-          booksRead: books.filter((book) => book.shelf === 'read')
+        this.setShelfState(books);
+      })
+    }
+
+    updateBookLocation(book, newShelfType) {
+      BooksAPI.update(book, newShelfType).then(() => {
+        BooksAPI.getAll().then((books) => {
+          this.setShelfState(books);
         })
       })
     }
@@ -36,21 +53,21 @@ class Bookshelf extends Component {
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
-                    <BookGrid collection={currentlyReading} />
+                    <BookGrid collection={currentlyReading} updateBookLocation={this.updateBookLocation} />
                   </div>
                 </div>
 
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
-                    <BookGrid collection={wantToRead} />
+                    <BookGrid collection={wantToRead} updateBookLocation={this.updateBookLocation}/>
                   </div>
                 </div>
 
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
-                    <BookGrid collection={booksRead} />
+                    <BookGrid collection={booksRead} updateBookLocation={this.updateBookLocation}/>
                   </div>
                 </div>
               </div>
