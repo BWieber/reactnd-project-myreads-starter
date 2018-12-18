@@ -1,30 +1,20 @@
 import React, { Component } from 'react';
-import BookshelfChanger from './BookshelfChanger';
+import Book from './Book';
 
 class BookGrid extends Component {
     render() {
-        const { collection, updateBookLocation, shelfBooks } =  this.props;
+        const { collection, updateBookLocation, shelfBooks } = this.props;
 
         return (
             <ol className="books-grid">
               {collection.length > 0 && (
               collection.map((book) =>
                 <li key={book.id}>
-                  <div className="book">
-                    <div className="book-top">
-                      <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})` }}></div>
-                        <BookshelfChanger 
-                          updateBookLocation={updateBookLocation} 
-                          book={book} 
-                          shelfBooks={shelfBooks}
-                        />
-                      </div>
-                
-                      <div className="book-title"> {`${book.title}`} </div>
-                      <div className="book-authors">
-                          {book.authors}
-                      </div>
-                  </div>
+                  <Book 
+                    updateBookLocation={updateBookLocation}
+                    book={book}
+                    shelfBooks={shelfBooks}
+                  />
                 </li>
                 )
               )}
