@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
+import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
 import BookshelfChanger from './BookshelfChanger';
 
 class SearchPage extends Component {
-    state = {
-      query: '',
-      books: []
+    constructor(props) {
+      super(props);
+      this.state = {
+        query: '',
+        books: []
+      }
+
+      this.updateQuery = this.updateQuery.bind(this);
     }
 
     updateQuery = (query) => {
@@ -18,6 +23,16 @@ class SearchPage extends Component {
         this.setState({ books: [] })
       } else {
         BooksAPI.search(trimmedQuery).then((books) => {
+          // books.forEach((book) => {
+          //   var bookIsOnShelf = shelfBooks.find((b) => book.id === b.id);
+
+          //   if (bookIsOnShelf !== undefined) {
+          //     book.shelf = bookIsOnShelf.shelf;
+          //   } else {
+          //     book.shelf = 'none';
+          //   }
+          // })
+
           this.setState({ books })
         })
       }
@@ -27,12 +42,9 @@ class SearchPage extends Component {
       this.setState({ query: '' })
     }
 
-    updateBookLocation(book, newShelfType) {
-      BooksAPI.update(book, newShelfType);
-    }
-
     render() {
         const { query, books } = this.state;
+        const { shelfBooks, updateBookLocation } = this.props;
 
         return (
             <div className="search-books">
@@ -64,11 +76,15 @@ class SearchPage extends Component {
               <ol className="books-grid">
               {books.length > 0 && (
                 books.map((book) => 
-                <li>
+                <li key={book.id}>
                   <div className="book">
                     <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})` }}></div>
-                        <BookshelfChanger updateBookLocation={this.updateBookLocation} book={book} />
+                        <BookshelfChanger 
+                          updateBookLocation={updateBookLocation} 
+                          book={book} 
+                          shelfBooks={shelfBooks} 
+                        />
                     </div>
                     <div className="book-title"> {`${book.title}`} </div>
                     <div className="book-authors">
