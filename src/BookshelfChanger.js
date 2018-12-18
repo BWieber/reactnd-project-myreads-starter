@@ -15,9 +15,7 @@ class BookshelfChanger extends Component {
 
     render() {
         const { updateBookLocation, book, shelfBooks } = this.props;
-
         const bookOnShelf = shelfBooks.find((b) => b.id === book.id);
-
         const shelfType = bookOnShelf ? bookOnShelf.shelf : 'none';
 
         return (

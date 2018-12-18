@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BookGrid from './BookGrid';
+import Shelf from './Shelf';
 
 class Bookshelf extends Component {
     render() {
@@ -19,38 +20,23 @@ class Bookshelf extends Component {
             </div>
             <div className="list-books-content">
               <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <BookGrid 
-                      collection={currentlyReading} 
-                      updateBookLocation={updateBookLocation}
-                      shelfBooks={shelfBooks} 
-                    />
-                  </div>
-                </div>
-
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <BookGrid 
-                      collection={wantToRead} 
-                      updateBookLocation={updateBookLocation}
-                      shelfBooks={shelfBooks} 
-                    />
-                  </div>
-                </div>
-
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <BookGrid 
-                      collection={booksRead} 
-                      updateBookLocation={updateBookLocation}
-                      shelfBooks={shelfBooks} 
-                    />
-                  </div>
-                </div>
+                <Shelf 
+                  collection={currentlyReading}
+                  updateBookLocation={updateBookLocation}
+                  shelfBooks={shelfBooks}
+                />
+        
+                <Shelf 
+                  collection={wantToRead} 
+                  updateBookLocation={updateBookLocation}
+                  shelfBooks={shelfBooks} 
+                />
+         
+                <Shelf 
+                  collection={booksRead} 
+                  updateBookLocation={updateBookLocation}
+                  shelfBooks={shelfBooks} 
+                />
               </div>
             </div>
             <div className="open-search">
