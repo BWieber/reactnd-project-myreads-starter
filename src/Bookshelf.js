@@ -12,6 +12,12 @@ class Bookshelf extends Component {
           updateBookLocation 
         } = this.props;
 
+        const shelves = [
+          { displayName: 'Currently Reading', objectName: currentlyReading },
+          { displayName: 'Want To Read', objectName: wantToRead },
+          { displayName: 'Read', objectName: booksRead }
+        ]
+
         return (
             <div className="list-books">
             <div className="list-books-title">
@@ -19,23 +25,14 @@ class Bookshelf extends Component {
             </div>
             <div className="list-books-content">
               <div>
-                <Shelf 
-                  collection={currentlyReading}
-                  updateBookLocation={updateBookLocation}
-                  shelfBooks={shelfBooks}
-                />
-        
-                <Shelf 
-                  collection={wantToRead} 
-                  updateBookLocation={updateBookLocation}
-                  shelfBooks={shelfBooks} 
-                />
-         
-                <Shelf 
-                  collection={booksRead} 
-                  updateBookLocation={updateBookLocation}
-                  shelfBooks={shelfBooks} 
-                />
+                {shelves.map((shelf) => (
+                  <Shelf
+                    collection={shelf.objectName}
+                    updateBookLocation={updateBookLocation}
+                    shelfBooks={shelfBooks}
+                    shelfType={shelf.displayName}
+                  />
+                ))}
               </div>
             </div>
             <div className="open-search">
