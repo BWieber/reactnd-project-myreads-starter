@@ -31,6 +31,7 @@ class Bookshelf extends Component {
                     updateBookLocation={updateBookLocation}
                     shelfBooks={shelfBooks}
                     shelfType={shelf.displayName}
+                    key={shelf.displayName}
                   />
                 ))}
               </div>

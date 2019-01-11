@@ -15,14 +15,18 @@ class SearchPage extends Component {
     }
 
     updateQuery = (query) => {
-      const trimmedQuery = query.trim();
+      const isSpaceOrDelete = (query.split('').pop() === ' ') || query.trim() === this.state.query.trim();
 
-      this.setState({ query: trimmedQuery })
+      this.setState({ query: query })
+      if (isSpaceOrDelete) {
+        return;
+      }
 
       if(query === '') {
         this.setState({ books: [] })
       } else {
-        BooksAPI.search(trimmedQuery).then((books) => {
+        BooksAPI.search(query).then((books) => {
+          
           this.setState({ books })
         })
       }
