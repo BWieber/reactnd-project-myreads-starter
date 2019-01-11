@@ -6,16 +6,13 @@ class Bookshelf extends Component {
     render() {
         const { 
           shelfBooks, 
-          currentlyReading, 
-          wantToRead, 
-          booksRead, 
           updateBookLocation 
         } = this.props;
 
         const shelves = [
-          { displayName: 'Currently Reading', objectName: currentlyReading },
-          { displayName: 'Want To Read', objectName: wantToRead },
-          { displayName: 'Read', objectName: booksRead }
+          { displayName: 'Currently Reading', objectName: 'currentlyReading' },
+          { displayName: 'Want To Read', objectName: 'wantToRead' },
+          { displayName: 'Read', objectName: 'read' }
         ]
 
         return (
@@ -27,7 +24,7 @@ class Bookshelf extends Component {
               <div>
                 {shelves.map((shelf) => (
                   <Shelf
-                    collection={shelf.objectName}
+                    collectionType={shelf.objectName}
                     updateBookLocation={updateBookLocation}
                     shelfBooks={shelfBooks}
                     shelfType={shelf.displayName}

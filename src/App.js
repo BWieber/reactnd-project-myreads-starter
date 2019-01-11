@@ -9,10 +9,7 @@ class BooksApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: [],
-      currentlyReading: [],
-      wantToRead: [],
-      booksRead: []
+      books: []
     }
 
     this.updateBookLocation = this.updateBookLocation.bind(this);
@@ -20,10 +17,7 @@ class BooksApp extends Component {
   
   setShelfState(books) {
     this.setState({
-      books: books,
-      currentlyReading: books.filter((book) => book.shelf === 'currentlyReading'),
-      wantToRead: books.filter((book) => book.shelf === 'wantToRead'),
-      booksRead: books.filter((book) => book.shelf === 'read')
+      books: books
     })
   }
 
@@ -42,16 +36,13 @@ class BooksApp extends Component {
   }
 
   render() {
-    const { books, currentlyReading, wantToRead, booksRead } = this.state;
+    const { books } = this.state;
 
     return (
       <div>
         <Route exact path='/' render={() => (
           <Bookshelf 
             shelfBooks={books} 
-            booksRead={booksRead}
-            wantToRead={wantToRead}
-            currentlyReading={currentlyReading}
             updateBookLocation={this.updateBookLocation}
           />
         )}/>
