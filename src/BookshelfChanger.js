@@ -10,11 +10,15 @@ class BookshelfChanger extends Component {
     }
 
     handleChange(event) {
-        this.setState({ value: event.target.value });
+        const { updateBookLocation, book} = this.props;
+        const selectValue = event.target.value;
+
+        updateBookLocation(book, selectValue);
+        this.setState({ value: selectValue });
     }
 
     render() {
-        const { updateBookLocation, book, shelfBooks } = this.props;
+        const { book, shelfBooks } = this.props;
         const bookOnShelf = shelfBooks.find((b) => b.id === book.id);
         const shelfType = bookOnShelf ? bookOnShelf.shelf : 'none';
 
@@ -22,10 +26,10 @@ class BookshelfChanger extends Component {
             <div className="book-shelf-changer">
                 <select value={shelfType} onChange={this.handleChange}>
                     <option value="move" disabled>Move to...</option>
-                    <option onClick={() => updateBookLocation(book, 'currentlyReading')} value="currentlyReading">Currently Reading</option>
-                    <option onClick={() => updateBookLocation(book, 'wantToRead')} value="wantToRead">Want to Read</option>
-                    <option onClick={() => updateBookLocation(book, 'read')} value="read">Read</option>
-                    <option onClick={() => updateBookLocation(book, 'none')} value="none">None</option>
+                    <option value="currentlyReading">Currently Reading</option>
+                    <option value="wantToRead">Want to Read</option>
+                    <option value="read">Read</option>
+                    <option value="none">None</option>
                 </select>
             </div>
         )
