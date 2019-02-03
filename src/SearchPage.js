@@ -26,8 +26,9 @@ class SearchPage extends Component {
         this.setState({ books: [] })
       } else {
         BooksAPI.search(query).then((books) => {
-          
-          this.setState({ books })
+          if(query === this.state.query) {
+            this.setState({ books })
+          }
         })
       }
     }
@@ -60,8 +61,8 @@ class SearchPage extends Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-              {books.length > 0 && (
-                books.map((book) => 
+              {books.length > 0
+              ? books.map((book) => 
                 <li key={book.id}>
                   <Book 
                     updateBookLocation={updateBookLocation}
@@ -70,7 +71,7 @@ class SearchPage extends Component {
                   />
                  </li>
                 )
-              )}
+              : <div> No Books Found </div>}
               </ol>
             </div>
           </div>
